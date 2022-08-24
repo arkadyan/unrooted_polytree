@@ -1,6 +1,16 @@
 # UnrootedPolytree
 
-**TODO: Add description**
+A data type and related functions to support an unrooted (multiple starting nodes) polytree (a tree-like graph with edges).
+
+Pictoral example:
+
+    O--->O--->O              O--->O
+                \            ˄
+                ˅          /
+      O--->O--->O--->O--->O--->O--->O--->O
+                            \
+                            ˅
+                            O
 
 ## Installation
 
