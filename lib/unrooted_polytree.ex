@@ -1,18 +1,15 @@
 defmodule UnrootedPolytree do
   @moduledoc """
-  Documentation for `UnrootedPolytree`.
+  A data type and related functions to support an unrooted (multiple starting nodes) polytree (a tree-like graph with edges).
   """
 
-  @doc """
-  Hello world.
+  alias UnrootedPolytree.{Edges, Node}
 
-  ## Examples
+  @type t :: %__MODULE__{
+          by_id: %{Node.id() => Node.t()},
+          edges: %{Node.id() => Edges.t()},
+          starting_nodes: [Node.id()]
+        }
 
-      iex> UnrootedPolytree.hello()
-      :world
-
-  """
-  def hello do
-    :world
-  end
+  defstruct by_id: %{}, edges: %{}, starting_nodes: []
 end
