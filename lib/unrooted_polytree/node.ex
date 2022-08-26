@@ -15,6 +15,15 @@ defmodule UnrootedPolytree.Node do
   defstruct @enforce_keys
 
   @doc ~S"""
+  Constructs a Node given an ID string and any value.
+
+  iex> UnrootedPolytree.Node.from_id_and_value("a", %{foo: "bar"})
+  %UnrootedPolytree.Node{id: "a", value: %{foo: "bar"}}
+  """
+  @spec from_id_and_value(id(), any()) :: t()
+  def from_id_and_value(id, value), do: %__MODULE__{id: id, value: value}
+
+  @doc ~S"""
   Returns the ID string of this node.
 
   iex> UnrootedPolytree.Node.id(%UnrootedPolytree.Node{id: "a", value: %{foo: "bar"}})
