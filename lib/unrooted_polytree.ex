@@ -25,6 +25,14 @@ defmodule UnrootedPolytree do
   def edges_for_id(%__MODULE__{edges: edges}, id), do: Map.get(edges, id, %Edges{})
 
   @doc """
+  Construct an UnrootedPolytree from a list of lists of values and associated ID strings
+  """
+  @spec from_lists([[id_and_value()]]) :: t()
+  def from_lists(list_of_lists),
+    do:
+      Enum.reduce(list_of_lists, %UnrootedPolytree{}, fn list, tree -> from_list(list, tree) end)
+
+  @doc """
   Construct an UnrootedPolytree from a list of values and associated ID strings
   """
   @spec from_list([id_and_value()]) :: t()
@@ -65,7 +73,7 @@ defmodule UnrootedPolytree do
 
   @spec add_by_id(nodes_by_id(), Node.id(), any()) :: nodes_by_id()
   defp add_by_id(by_id, id, value),
-    do: Map.merge(by_id, %{id => Node.from_id_and_value(id, value)})
+    do: Map.put_new(by_id, id, Node.from_id_and_value(id, value))
 
   @spec add_next_and_previous_edges(t(), Node.id(), Node.id()) :: edges_by_id()
   defp add_next_and_previous_edges(%UnrootedPolytree{edges: edges} = tree, next_id, previous_id) do

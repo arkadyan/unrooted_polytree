@@ -35,18 +35,24 @@ defmodule UnrootedPolytree.Edges do
 
   iex> UnrootedPolytree.Edges.add_next(%UnrootedPolytree.Edges{next: ["x", "y", "z"]}, "a")
   %UnrootedPolytree.Edges{next: ["a", "x", "y", "z"], previous: []}
+
+  iex> UnrootedPolytree.Edges.add_next(%UnrootedPolytree.Edges{next: ["x"]}, "x")
+  %UnrootedPolytree.Edges{next: ["x"], previous: []}
   """
   @spec add_next(t(), Node.id()) :: t()
   def add_next(%__MODULE__{next: next, previous: previous}, id),
-    do: %__MODULE__{next: [id | next], previous: previous}
+    do: %__MODULE__{next: Enum.uniq([id | next]), previous: previous}
 
   @doc """
   Returns a list of the previous nodes.
 
   iex> UnrootedPolytree.Edges.add_previous(%UnrootedPolytree.Edges{previous: ["a", "b", "c"]}, "x")
   %UnrootedPolytree.Edges{next: [], previous: ["x", "a", "b", "c"]}
+
+  iex> UnrootedPolytree.Edges.add_previous(%UnrootedPolytree.Edges{previous: ["x"]}, "x")
+  %UnrootedPolytree.Edges{next: [], previous: ["x"]}
   """
   @spec add_previous(t(), Node.id()) :: t()
   def add_previous(%__MODULE__{next: next, previous: previous}, id),
-    do: %__MODULE__{next: next, previous: [id | previous]}
+    do: %__MODULE__{next: next, previous: Enum.uniq([id | previous])}
 end
