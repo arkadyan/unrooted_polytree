@@ -29,3 +29,7 @@ Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_do
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at <https://hexdocs.pm/unrooted_polytree>.
  -->
+
+## License
+
+`UnrootedPolytree` is licensed under the [MIT](LICENSE) license.
