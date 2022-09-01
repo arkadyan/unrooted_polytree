@@ -7,7 +7,17 @@ defmodule UnrootedPolytree.MixProject do
       version: "0.1.0",
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      name: "UnrootedPolytree",
+      description:
+        "GenStagA data type and related functions to support an unrooted (multiple starting nodes) polytree (a tree-like graph with edges).",
+      source_url: "https://github.com/arkadyan/unrooted_polytree",
+      docs: [main: "readme", extras: ["README.md"]],
+      package: package(),
+      dialyzer: [
+        plt_add_deps: :app_tree
+      ],
+      test_coverage: [tool: LcovEx]
     ]
   end
 
@@ -21,8 +31,18 @@ defmodule UnrootedPolytree.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
+      {:dialyxir, "~> 1.1", only: :dev, optional: true}
+    ]
+  end
+
+  defp package do
+    [
+      licenses: ["MIT"],
+      maintainers: ["Matthew Shanley <matthewshanley@littlesecretsrecords.com>"],
+      links: %{
+        "Github" => "https://github.com/arkadyan/unrooted_polytree"
+      },
+      files: ~w(lib/**/*.ex mix.exs README.md LICENSE)
     ]
   end
 end
