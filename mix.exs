@@ -31,7 +31,8 @@ defmodule UnrootedPolytree.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:dialyxir, "~> 1.1", only: :dev, optional: true}
+      {:dialyxir, "~> 1.1", only: :dev, optional: true},
+      {:ex_doc, "~> 0.27", only: :dev, runtime: false}
     ]
   end
 
