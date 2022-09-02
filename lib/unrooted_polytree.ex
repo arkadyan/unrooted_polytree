@@ -18,9 +18,15 @@ defmodule UnrootedPolytree do
 
   defstruct by_id: %{}, edges: %{}, starting_nodes: []
 
+  @doc """
+  Retrieve a node by its ID.
+  """
   @spec node_for_id(t(), Node.id()) :: {:ok, Node.t()} | :error
   def node_for_id(%__MODULE__{by_id: by_id}, id), do: Map.fetch(by_id, id)
 
+  @doc """
+  Retrieve the edges for a node given its ID.
+  """
   @spec edges_for_id(t(), Node.id()) :: Edges.t()
   def edges_for_id(%__MODULE__{edges: edges}, id), do: Map.get(edges, id, %Edges{})
 
