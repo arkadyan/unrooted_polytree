@@ -4,6 +4,52 @@ defmodule UnrootedPolytreeTest do
 
   alias UnrootedPolytree.{Edges, Node}
 
+  @green_line_example %UnrootedPolytree{
+    by_id: %{
+      "ball" => %Node{id: "ball", value: "ball"},
+      "bland" => %Node{id: "bland", value: "bland"},
+      "buest" => %Node{id: "buest", value: "buest"},
+      "clmnl" => %Node{id: "clmnl", value: "clmnl"},
+      "coecl" => %Node{id: "coecl", value: "coecl"},
+      "fenwy" => %Node{id: "fenwy", value: "fenwy"},
+      "gover" => %Node{id: "gover", value: "gover"},
+      "hsmnl" => %Node{id: "hsmnl", value: "hsmnl"},
+      "hymnl" => %Node{id: "hymnl", value: "hymnl"},
+      "kencl" => %Node{id: "kencl", value: "kencl"},
+      "lake" => %Node{id: "lake", value: "lake"},
+      "lech" => %Node{id: "lech", value: "lech"},
+      "medt" => %Node{id: "medt", value: "medt"},
+      "north" => %Node{id: "north", value: "north"},
+      "pktrm" => %Node{id: "pktrm", value: "pktrm"},
+      "prmnl" => %Node{id: "prmnl", value: "prmnl"},
+      "river" => %Node{id: "river", value: "river"},
+      "smary" => %Node{id: "smary", value: "smary"},
+      "unsqu" => %Node{id: "unsqu", value: "unsqu"}
+    },
+    edges: %{
+      "ball" => %Edges{next: ["medt"], previous: ["lech"]},
+      "bland" => %Edges{next: ["kencl"], previous: ["buest"]},
+      "buest" => %Edges{next: ["bland"], previous: ["lake"]},
+      "clmnl" => %Edges{next: ["smary"], previous: []},
+      "coecl" => %Edges{next: ["pktrm"], previous: ["prmnl", "hymnl"]},
+      "fenwy" => %Edges{next: ["kencl"], previous: ["river"]},
+      "gover" => %Edges{next: ["north"], previous: ["pktrm"]},
+      "hsmnl" => %Edges{next: ["prmnl"], previous: []},
+      "hymnl" => %Edges{next: ["coecl"], previous: ["kencl"]},
+      "kencl" => %Edges{next: ["hymnl"], previous: ["fenwy", "smary", "bland"]},
+      "lake" => %Edges{next: ["buest"], previous: []},
+      "lech" => %Edges{next: ["ball", "unsqu"], previous: ["north"]},
+      "medt" => %Edges{next: [], previous: ["ball"]},
+      "north" => %Edges{next: ["lech"], previous: ["gover"]},
+      "pktrm" => %Edges{next: ["gover"], previous: ["coecl"]},
+      "prmnl" => %Edges{next: ["coecl"], previous: ["hsmnl"]},
+      "river" => %Edges{next: ["fenwy"], previous: []},
+      "smary" => %Edges{next: ["kencl"], previous: ["clmnl"]},
+      "unsqu" => %Edges{next: [], previous: ["lech"]}
+    },
+    starting_nodes: ["hsmnl", "river", "clmnl", "lake"]
+  }
+
   describe "from_lists/1" do
     test "constructs an UnrootedPolytree from a list of lists of values and associated ID strings" do
       b = [
@@ -54,51 +100,7 @@ defmodule UnrootedPolytreeTest do
 
       list_of_lists = [b, c, d, e]
 
-      expected = %UnrootedPolytree{
-        by_id: %{
-          "ball" => %Node{id: "ball", value: "ball"},
-          "bland" => %Node{id: "bland", value: "bland"},
-          "buest" => %Node{id: "buest", value: "buest"},
-          "clmnl" => %Node{id: "clmnl", value: "clmnl"},
-          "coecl" => %Node{id: "coecl", value: "coecl"},
-          "fenwy" => %Node{id: "fenwy", value: "fenwy"},
-          "gover" => %Node{id: "gover", value: "gover"},
-          "hsmnl" => %Node{id: "hsmnl", value: "hsmnl"},
-          "hymnl" => %Node{id: "hymnl", value: "hymnl"},
-          "kencl" => %Node{id: "kencl", value: "kencl"},
-          "lake" => %Node{id: "lake", value: "lake"},
-          "lech" => %Node{id: "lech", value: "lech"},
-          "medt" => %Node{id: "medt", value: "medt"},
-          "north" => %Node{id: "north", value: "north"},
-          "pktrm" => %Node{id: "pktrm", value: "pktrm"},
-          "prmnl" => %Node{id: "prmnl", value: "prmnl"},
-          "river" => %Node{id: "river", value: "river"},
-          "smary" => %Node{id: "smary", value: "smary"},
-          "unsqu" => %Node{id: "unsqu", value: "unsqu"}
-        },
-        edges: %{
-          "ball" => %Edges{next: ["medt"], previous: ["lech"]},
-          "bland" => %Edges{next: ["kencl"], previous: ["buest"]},
-          "buest" => %Edges{next: ["bland"], previous: ["lake"]},
-          "clmnl" => %Edges{next: ["smary"], previous: []},
-          "coecl" => %Edges{next: ["pktrm"], previous: ["prmnl", "hymnl"]},
-          "fenwy" => %Edges{next: ["kencl"], previous: ["river"]},
-          "gover" => %Edges{next: ["north"], previous: ["pktrm"]},
-          "hsmnl" => %Edges{next: ["prmnl"], previous: []},
-          "hymnl" => %Edges{next: ["coecl"], previous: ["kencl"]},
-          "kencl" => %Edges{next: ["hymnl"], previous: ["fenwy", "smary", "bland"]},
-          "lake" => %Edges{next: ["buest"], previous: []},
-          "lech" => %Edges{next: ["ball", "unsqu"], previous: ["north"]},
-          "medt" => %Edges{next: [], previous: ["ball"]},
-          "north" => %Edges{next: ["lech"], previous: ["gover"]},
-          "pktrm" => %Edges{next: ["gover"], previous: ["coecl"]},
-          "prmnl" => %Edges{next: ["coecl"], previous: ["hsmnl"]},
-          "river" => %Edges{next: ["fenwy"], previous: []},
-          "smary" => %Edges{next: ["kencl"], previous: ["clmnl"]},
-          "unsqu" => %Edges{next: [], previous: ["lech"]}
-        },
-        starting_nodes: ["hsmnl", "river", "clmnl", "lake"]
-      }
+      expected = @green_line_example
 
       assert UnrootedPolytree.from_lists(list_of_lists) == expected
     end
@@ -161,6 +163,20 @@ defmodule UnrootedPolytreeTest do
 
     test "given an empty list returns an empty tree" do
       assert UnrootedPolytree.from_list([]) == %UnrootedPolytree{}
+    end
+  end
+
+  describe "node_for_id/2" do
+    test "returns the value of the requested node" do
+      assert UnrootedPolytree.node_for_id(@green_line_example, "coecl") ==
+               {:ok, %UnrootedPolytree.Node{id: "coecl", value: "coecl"}}
+    end
+  end
+
+  describe "edges_for_id/2" do
+    test "returns the edges for the requested node" do
+      assert UnrootedPolytree.edges_for_id(@green_line_example, "coecl") ==
+               %Edges{next: ["pktrm"], previous: ["prmnl", "hymnl"]}
     end
   end
 end
