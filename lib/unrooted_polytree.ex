@@ -55,7 +55,7 @@ defmodule UnrootedPolytree do
     new_tree = %__MODULE__{
       by_id: add_by_id(by_id, id, value),
       edges: edges,
-      starting_nodes: [id | starting_nodes]
+      starting_nodes: Enum.uniq([id | starting_nodes])
     }
 
     from_list(tail, new_tree, id)
