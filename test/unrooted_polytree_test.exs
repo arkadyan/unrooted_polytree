@@ -134,6 +134,39 @@ defmodule UnrootedPolytreeTest do
 
       assert UnrootedPolytree.from_lists(list_of_lists) == expected
     end
+
+    test "merges duplicate starting nodes" do
+      list_of_lists = [
+        [
+          {"a", "a"},
+          {"b", "b"},
+          {"x", "x"}
+        ],
+        [
+          {"a", "a"},
+          {"b", "b"},
+          {"y", "y"}
+        ]
+      ]
+
+      expected = %UnrootedPolytree{
+        by_id: %{
+          "a" => %Node{id: "a", value: "a"},
+          "b" => %Node{id: "b", value: "b"},
+          "x" => %Node{id: "x", value: "x"},
+          "y" => %Node{id: "y", value: "y"}
+        },
+        edges: %{
+          "a" => %Edges{next: ["b"], previous: []},
+          "b" => %Edges{next: ["y", "x"], previous: ["a"]},
+          "x" => %Edges{next: [], previous: ["b"]},
+          "y" => %Edges{next: [], previous: ["b"]}
+        },
+        starting_nodes: ["a"]
+      }
+
+      assert UnrootedPolytree.from_lists(list_of_lists) == expected
+    end
   end
 
   describe "from_list/1" do
